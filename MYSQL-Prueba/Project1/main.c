@@ -3,7 +3,6 @@
 #include <string.h>
 #include <mysql.h>
 #include "backend\utils.h"
-#include "frontend\front.h"
 
 int main() {
 

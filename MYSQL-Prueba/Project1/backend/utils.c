@@ -24,15 +24,13 @@ void leer_entero(char* buffer, int* id,size_t tamanio) {
 	char* endptr; // Puntero para verificar errores de conversión
 	printf("Ingresa el numero: ");
 
-	// Leer la entrada
 	if (fgets(buffer, tamanio, stdin) == NULL) {
-		printf("Error al leer la entrada\n"); // Error al leer la entrada
+		printf("Error al leer la entrada\n"); 
 		return;
 	}
 
-	// Verificar si se ingresó más texto del que cabe en el buffer
 	if (strchr(buffer, '\n') == NULL) {
-		limpiarBuffer(); // Limpiar caracteres sobrantes del buffer
+		limpiarBuffer();
 		printf("La entrada excedio el limite del buffer y ha sido limpiada.\n");
 		return;
 	}
@@ -40,22 +38,18 @@ void leer_entero(char* buffer, int* id,size_t tamanio) {
 		buffer[strcspn(buffer, "\n")] = '\0'; // Reemplazar el '\n' por '\0'
 	}
 
-	// Convertir la cadena a un entero usando strtol
 	long resultado = strtol(buffer, &endptr, 10);
 
-	// Verificar si la conversión contiene caracteres no numéricos
 	if (*endptr != '\0') {
 		printf("No valida: contiene caracteres no numericos.\n");
 		return;
 	}
 
-	// Validar si el resultado está fuera del rango de un entero
 	if (errno == ERANGE || resultado > INT_MAX || resultado < INT_MIN) {
 		printf("El valor ingresado esta fuera del rango permitido para un entero.\n");
 		return;
 	}
 
-	// Asignar el resultado si es válido
 	*id = (int)resultado;
 	printf("Numero ingresado correctamente: %d\n", *id);
 }
@@ -67,13 +61,11 @@ void leer_input_recortado(char* buffer, size_t tamanio) {
 	if (fgets(buffer, tamanio, stdin) != NULL) {
 		size_t len = strlen(buffer);
 
-		// Si el salto de línea está presente, lo eliminamos
 		if (len > 0 && buffer[len - 1] == '\n') {
 			buffer[len - 1] = '\0'; // Reemplaza el '\n' con '\0'
 		}
 		else {
-			// Si no hay '\n', significa que la entrada excedió el tamaño del buffer
-			limpiarBuffer(); // Vacía el resto del buffer
+			limpiarBuffer();
 		}
 	}
 	else {
@@ -218,15 +210,7 @@ void GetById(MYSQL** conexion) {
 	int id;
 	MYSQL_RES* result;
 	MYSQL_BIND param[1];
-	char buff[20];/*
-	MYSQL_BIND param2[2];
-	MYSQL_FIELD* col;
-	unsigned long length[2];
-	int           int_data;
-	char          str_data[BUFFER_SIZE];
-	bool          is_null[2];
-	bool          error[2];
-	int cant;*/
+	char buff[20];
 
 	stmt = mysql_stmt_init(*conexion);
 
